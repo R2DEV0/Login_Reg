@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+
+    <style>
+
+        body{
+            width: 1200px;
+            margin: 0 auto;
+            font-family: sans-serif;
+        }
+
+        #reg_div{
+            display: inline-block;
+            width: 500px;
+            margin-left: 50px;
+            margin-top: 50px;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 350px;
+            height: 310px;
+            padding-left: 30px;
+            margin-right: 40px;
+            background-color: lightcyan;
+        }
+
+        #login_div{
+            width: 500px;
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 50px;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 350px;
+            height: 310px;
+            padding-left: 30px;
+            background-color: lightcyan;
+        }
+
+        .messages{
+            color: red;
+            text-align: left;
+            font-weight: bold;
+            font-size: 20px;
+            margin-left: 270px;
+        }
+
+        .first_name{
+            margin-bottom: 15px;
+        }
+
+        .last_name{
+            margin-bottom: 15px;
+        }
+
+        .pass{
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .conpass{
+            margin-bottom: 20px;
+        }
+
+        .email2{
+            margin-bottom: 15px;
+        }
+
+        .pass2{
+            margin-bottom: 20px;
+        }
+
+        button{
+            height: 30px;
+            width: 100px;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: lightslategray;
+            color: white;
+            margin-left: 90px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id='reg_div'>
+        <h1>Registration</h1>
+
+        <form action="/new_user" method="POST">
+            {% csrf_token %}
+            <label for="first_name" class='first_name'>First Name</label>
+            <input type="text" name='first_name' class='first_name'> <br>
+
+            <label for="last_name" class='last_name'>Last Name</label>
+            <input type="text" name='last_name' class='last_name'> <br>
+
+            <label for="email" class='email'>Email</label>
+            <input type="text" name='email' class='email'> <br>
+
+            <label for="password" class='pass'>Password</label>
+            <input type="password" name='password' class='pass'> <br>
+
+            <label for="confirmed_pass" class= 'conpass'>Confirm Password</label>
+            <input type="password" name='confirmed_pass' class='conpass'> <br>
+
+            <button>Register</button>
+        </form>
+
+    </div>
+
+
+
+    <div id='login_div'>
+        <h1>Login</h1>
+
+        <form action="/login" method="POST">
+            {% csrf_token %}
+            <label for="email" class='email'>Email</label>
+            <input type="text" name='email' class='email2'> <br>
+        
+            <label for="password" class=pass2>Password</label>
+            <input type="password" name='password' class='pass2'> <br>
+
+            <button>Log In</button>
+        </form>
+
+    </div>
+
+    {% if messages %}
+        <ul class="messages">    
+        {% for message in messages %}    
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+
+</body>
+
+</html>
