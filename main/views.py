@@ -44,7 +44,12 @@ def login(request):
 
 
 
-def profile(request, user_id): 
+def profile(request, user_id):
+    
+    # This checks if someone is logged in correctly. If not, they get kicked out.
+    if 'user_id' not in request.session:
+        return redirect('/')          
+
     context ={
         'user' : User.objects.get(id=request.session['user_id'])
     }

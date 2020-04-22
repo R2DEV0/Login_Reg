@@ -31,12 +31,18 @@ class ShowManager(models.Manager):
     def return_validator(self, postData):
         errors = {}
         user = User.objects.filter(email=postData['email'])
+
+        if (len(postData['email']) < 1):
+            errors['email'] = "No email was entered."
+        if (len(postData['password']) < 1):
+            errors['password'] = "No password was entered."
+
         if user:
             logged_user = user[0]
             if bcrypt.checkpw(postData['password'].encode(), logged_user.password.encode()):
                 return errors
-            errors['no_pass'] = 'Incorrect password for Email given'
-            return errors
+            else:
+                errors['no_pass'] = 'Incorrect password'
         errors['no_email'] = 'Email is not registered'
         return errors
 
